@@ -1,0 +1,21 @@
+{
+  "name": "mermaid-diagram",
+  "description": "Generate interactive HTML diagrams with Mermaid.js for visualizing flows, sequences, architectures, and processes",
+  "version": "1.0.0",
+  "author": {
+    "name": "Agentic Coding School"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agentic-coding-school/mermaid-diagram-plugin"
+  },
+  "license": "MIT",
+  "keywords": [
+    "mermaid",
+    "diagrams",
+    "visualization",
+    "flowchart",
+    "sequence-diagram",
+    "architecture"
+  ]
+}
