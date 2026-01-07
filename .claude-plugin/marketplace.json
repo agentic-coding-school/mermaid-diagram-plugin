@@ -1,0 +1,21 @@
+{
+  "name": "mermaid-diagram-marketplace",
+  "owner": {
+    "name": "Agentic Coding School"
+  },
+  "metadata": {
+    "description": "Mermaid diagram generation plugin for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "mermaid-diagram",
+      "source": "./",
+      "description": "Generate interactive HTML diagrams with Mermaid.js for visualizing flows, sequences, architectures, and processes",
+      "version": "1.0.0",
+      "author": {
+        "name": "Agentic Coding School"
+      },
+      "keywords": ["mermaid", "diagrams", "visualization", "flowchart", "sequence-diagram"]
+    }
+  ]
+}
