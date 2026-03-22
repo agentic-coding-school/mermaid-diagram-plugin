@@ -136,4 +136,47 @@ Test diagrams by:
 
 ## Version
 
-1.0.0 - Initial release
+- 1.0.0 - Initial release
+- 2.0.0 - Adaptive interview, interactive editor, context presets
+
+## What's New in v2.0
+
+### Adaptive Context Interview
+
+The skill now uses `AskUserQuestion` to understand your needs before generating diagrams:
+
+1. **Purpose-first questioning** - Asks whether the diagram is for academic/scientific use, presentations, documentation, or a quick sketch
+2. **Conditional follow-ups** - Academic users get font preference questions; presentation users get color preference questions
+3. **Engagement-gated** - Offers the interactive editor only when you're engaged; respects "just make it" requests
+4. **Maximum 3-4 questions** - Never over-interviews
+
+### Interactive HTML Editor
+
+When enabled, the generated HTML includes a sidebar editor with full diagram customization:
+
+- **Theme Switcher** - Light, Dark, Neutral, Forest
+- **Global Color Palette** - Primary, secondary, and accent color pickers
+- **Click-to-Edit Nodes** - Click any node to change its individual fill and border colors
+- **Inline Text Editing** - Double-click any node to edit its label text directly
+- **Node Resize** - Shift+click to cycle through size emphasis (80%, 100%, 120%, 150%)
+- **Font Controls** - Sans-serif, serif, and monospace options with size slider
+- **Zoom** - Scale from 50% to 200%
+- **Export** - PNG and SVG export
+- **Auto-Save** - All customizations persist in localStorage and restore on page reload
+- **Mobile Responsive** - Sidebar collapses on mobile devices
+
+### Context Presets
+
+Two pre-configured styling presets optimized for specific use cases:
+
+- **Academic/Scientific** - Serif typography (Georgia/Times), muted navy/gray colors, print-optimized, minimal decoration, grayscale-friendly
+- **Presentation** - Bold sans-serif, vibrant high-contrast colors, larger fonts and nodes, dark background for projector visibility
+
+### New Files
+
+- **[interactive-template.md](interactive-template.md)** - Complete interactive HTML template reference
+- **[context-presets.md](context-presets.md)** - Academic and Presentation preset configurations
+
+### Compatibility
+
+Per-node interactive features work best with flowcharts, class diagrams, state diagrams, and ER diagrams. Sequence diagrams, Gantt charts, git graphs, and mindmaps support global controls (theme, colors, fonts, zoom, export) but not per-node editing.

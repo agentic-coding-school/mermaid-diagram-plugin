@@ -68,21 +68,50 @@ The plugin generates standalone HTML files that:
 - Support dark mode automatically
 - Include documentation and key points
 
+## v2.0 Features
+
+### Adaptive Context Interview
+
+The skill now interviews you before generating diagrams using `AskUserQuestion`:
+- **Purpose-first**: Asks whether the diagram is for academic papers, presentations, documentation, or a quick sketch
+- **Adaptive follow-ups**: Only asks relevant questions based on your answers
+- **Maximum 3-4 questions**: Never over-interviews; respects "just make it" requests
+
+### Interactive Editor
+
+When enabled, generated HTML files include a **sidebar editor** with:
+- **Theme Switcher** - Toggle between Light, Dark, Neutral, and Forest themes
+- **Global Color Palette** - Color pickers for primary, secondary, and accent colors
+- **Per-Node Editing** - Click any node to change its individual colors
+- **Inline Text Editing** - Double-click any node to edit its label
+- **Node Resize** - Shift+click to cycle through size options
+- **Font & Size Controls** - Choose font family and adjust size
+- **Zoom Control** - Scale diagrams from 50% to 200%
+- **Export** - Save as PNG or SVG
+- **Auto-Save** - All customizations persist in localStorage
+
+### Context Presets
+
+- **Academic/Scientific** - Serif fonts, muted colors, print-optimized, publication-ready
+- **Presentation** - Bold sans-serif, high-contrast vibrant colors, larger fonts and nodes
+
 ## Plugin Structure
 
 ```
 mermaid-diagram-plugin/
 ├── .claude-plugin/
-│   └── plugin.json          # Plugin manifest
+│   └── plugin.json              # Plugin manifest
 ├── skills/
 │   └── mermaid-diagram-generator/
-│       ├── SKILL.md              # Main skill definition
-│       ├── diagram-examples.md   # Templates for all diagram types
+│       ├── SKILL.md                 # Main skill definition
+│       ├── diagram-examples.md      # Templates for all diagram types
 │       ├── mermaid-syntax-guide.md  # Complete syntax reference
-│       ├── styling-guide.md      # HTML/CSS customization
-│       └── README.md             # Skill documentation
-├── README.md                 # This file
-└── LICENSE                   # MIT License
+│       ├── styling-guide.md         # HTML/CSS customization
+│       ├── interactive-template.md  # Interactive editor HTML template
+│       ├── context-presets.md       # Academic & Presentation presets
+│       └── README.md               # Skill documentation
+├── README.md                    # This file
+└── LICENSE                      # MIT License
 ```
 
 ## Development

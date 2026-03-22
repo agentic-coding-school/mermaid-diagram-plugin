@@ -1,7 +1,7 @@
 ---
 name: mermaid-diagram-generator
 description: Generate interactive HTML diagrams with Mermaid.js for visualizing flows, sequences, architectures, and processes. Use when the user asks to "create a diagram", "visualize the flow", "draw a sequence diagram", "show me how X works", or needs visual documentation of system interactions, workflows, database schemas, or technical processes.
-allowed-tools: Write, Read, Bash, Grep, Glob
+allowed-tools: Write, Read, Bash, Grep, Glob, AskUserQuestion
 ---
 
 # Mermaid Diagram Generator
@@ -73,6 +73,66 @@ This skill creates **interactive HTML diagrams** that:
 **Example triggers**:
 - "Create a project timeline"
 - "Show the release schedule"
+
+## Adaptive Context Interview (Step 0)
+
+**Before starting any diagram work**, use `AskUserQuestion` to understand the user's needs. This eliminates generic output by tailoring the diagram to the user's specific context, preferences, and intended use.
+
+### Phase A: Purpose (Always Ask)
+
+Use `AskUserQuestion` to ask the user about their diagram's primary purpose:
+
+- **Academic/Scientific** - For papers, theses, journal figures, technical reports
+- **Presentation** - For talks, meetings, stakeholder demos, conference slides
+- **Documentation** - For codebases, wikis, technical docs, READMEs
+- **Quick Sketch** - Just need something fast, minimal fuss
+
+### Phase B: Conditional Follow-ups
+
+Based on the purpose selected:
+
+**If Academic/Scientific:**
+- Ask: "Font preference? Serif (Times/Georgia for traditional academic look) or sans-serif (modern scientific style like Nature/Science journals)?"
+- Apply the Academic preset from [context-presets.md](context-presets.md)
+
+**If Presentation:**
+- Ask: "Color preference? Vibrant and bold, professional and muted, or match specific brand colors?"
+- Apply the Presentation preset from [context-presets.md](context-presets.md)
+
+**If Documentation:**
+- Use the default styling (no preset needed)
+- Proceed to Phase C
+
+**If Quick Sketch:**
+- Skip all further questions
+- Use default styling and the standard static template
+- Proceed directly to Step 1
+
+### Phase C: Engagement-Gated Customization
+
+If the user gave detailed, engaged answers in Phases A-B, ask ONE more question:
+
+- "Would you like the interactive editor in the HTML output? This adds a sidebar with theme switching, color pickers, font controls, zoom, and export to PNG/SVG — plus you can click individual nodes to change their colors, double-click to edit text, and Shift+click to resize."
+
+**If yes:** Use the interactive template from [interactive-template.md](interactive-template.md)
+**If no or skipped:** Use the standard static template from Step 5 below
+
+### Phase D: Context Questions
+
+Ask about the diagram content (combine with Phase A if efficient):
+- What specific flow/process should be visualized?
+- What level of detail is needed? (high-level overview vs detailed implementation)
+- Are there specific components or actors that must be included?
+- What's the output file name preference?
+
+### Interview Rules
+
+- **Maximum 3-4 questions total.** Combine related questions into single AskUserQuestion calls.
+- **If the user says "just make it"**, stop asking and proceed with sensible defaults.
+- **Adapt to engagement level.** Terse answers = fewer follow-ups. Detailed answers = offer more options.
+- **Never re-ask** what's already clear from the conversation context.
+
+---
 
 ## Instructions
 
@@ -311,6 +371,8 @@ mermaid.initialize({
 - [diagram-examples.md](diagram-examples.md) - Templates for each diagram type
 - [mermaid-syntax-guide.md](mermaid-syntax-guide.md) - Complete Mermaid syntax reference
 - [styling-guide.md](styling-guide.md) - HTML/CSS customization options
+- [interactive-template.md](interactive-template.md) - Full interactive HTML template with editor sidebar
+- [context-presets.md](context-presets.md) - Academic and Presentation preset configurations
 
 ## Important Notes
 
@@ -319,3 +381,73 @@ mermaid.initialize({
 - **Mobile-friendly**: Use responsive design and readable fonts
 - **Accessible**: Include alt text and semantic HTML
 - **Shareable**: Files should be self-contained (no external dependencies except Mermaid CDN)
+
+---
+
+## Interactive HTML Template
+
+When the user opts for the interactive editor (via the Adaptive Context Interview), use the template from [interactive-template.md](interactive-template.md) instead of the standard static template in Step 5.
+
+### What the Interactive Template Provides
+
+The interactive template generates an HTML file with a **sidebar editor** that includes:
+
+- **Page Theme** - Switch between Light and Dark page backgrounds
+- **Diagram Style** - Change the Mermaid diagram color scheme (Default, Dark, Neutral, Forest)
+- **Global Color Palette** - Color pickers for primary, secondary, and accent colors
+- **Font Selector** - Choose between sans-serif, serif, and monospace fonts
+- **Font Size Control** - Adjustable slider (10-24px)
+- **Zoom Control** - Scale the diagram from 50% to 200% with scrollable container
+- **Per-Node Editing** - Click any node to change its fill color, border color, or shape (Rectangle, Rounded, Diamond, Circle, Stadium)
+- **Inline Text Editing** - Double-click any node to edit its label text
+- **Node Resize** - Shift+click to cycle through size options (80%, 100%, 120%, 150%)
+- **Edge/Arrow Editing** - Click any arrow to change its style (solid/dotted/thick), edit its label, or re-route it to different nodes
+- **Edge Label Editing** - Double-click any arrow label to edit it inline
+- **Export** - Save as PNG (full diagram, not clipped) or SVG
+- **Auto-Save** - All customizations persist in localStorage
+
+### When to Use Interactive vs Static
+
+| Scenario | Template |
+|----------|----------|
+| User requested interactive editor | Interactive (from interactive-template.md) |
+| User selected Academic or Presentation preset | Interactive with preset applied |
+| User selected Quick Sketch | Static (from Step 5) |
+| User selected Documentation (default) | Static (from Step 5) |
+| User didn't specify preference | Static (from Step 5) |
+
+### Applying Context Presets
+
+When using a preset with the interactive template:
+
+1. Add the preset class to `<body>` (e.g., `class="preset-academic"`)
+2. Include the preset's CSS from [context-presets.md](context-presets.md)
+3. Set the JavaScript default state values to match the preset defaults
+4. Initialize sidebar controls with preset values
+
+See [context-presets.md](context-presets.md) for full preset configurations.
+
+### Diagram Type Compatibility
+
+Per-node interactive features (click-to-edit colors, text editing, resize) work best with **flowcharts**, **class diagrams**, **state diagrams**, and **ER diagrams**. For **sequence diagrams**, **Gantt charts**, **git graphs**, and **mindmaps**, the editor gracefully provides global controls only (theme, colors, fonts, zoom, export).
+
+### Output Format (Interactive)
+
+```
+Diagram created: /path/to/diagram-name.html
+
+The diagram shows:
+- [Brief description of what's visualized]
+- [Number of actors/components/states]
+- [Key phases or sections]
+
+Interactive features:
+- Use the sidebar to change theme, colors, fonts, and zoom
+- Click nodes to edit individual colors
+- Double-click nodes to edit text labels
+- Shift+click nodes to resize
+- Export as PNG or SVG from the sidebar
+- Your changes are auto-saved
+
+Open the file in your browser to view and customize the diagram.
+```
