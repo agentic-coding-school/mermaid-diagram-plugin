@@ -68,7 +68,7 @@ The plugin generates standalone HTML files that:
 - Support dark mode automatically
 - Include documentation and key points
 
-## v2.0 Features
+## v1.1 Features
 
 ### Adaptive Context Interview
 

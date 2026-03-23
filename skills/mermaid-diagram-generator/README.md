@@ -137,9 +137,9 @@ Test diagrams by:
 ## Version
 
 - 1.0.0 - Initial release
-- 2.0.0 - Adaptive interview, interactive editor, context presets
+- 1.1.0 - Adaptive interview, interactive editor, context presets
 
-## What's New in v2.0
+## What's New in v1.1
 
 ### Adaptive Context Interview
 
