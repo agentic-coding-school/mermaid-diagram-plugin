@@ -4,13 +4,25 @@ A Claude Code plugin that generates interactive HTML diagrams with Mermaid.js fo
 
 ## Installation
 
-### Option 1: Install from GitHub (Recommended)
+### Option 1: Install from Marketplace (Recommended)
+
+First, add the plugin's marketplace, then install:
 
 ```bash
-claude /plugin install https://github.com/agentic-coding-school/mermaid-diagram-plugin
+# Add the marketplace
+claude plugin marketplace add agentic-coding-school/mermaid-diagram-plugin
+
+# Install the plugin
+claude plugin install mermaid-diagram@mermaid-diagram-marketplace
 ```
 
-### Option 2: Install Locally
+You can scope the installation to user-level (default), project-level, or local:
+
+```bash
+claude plugin install mermaid-diagram@mermaid-diagram-marketplace --scope project
+```
+
+### Option 2: Load Locally (For Development)
 
 Clone this repository and load it with the `--plugin-dir` flag:
 
@@ -18,6 +30,8 @@ Clone this repository and load it with the `--plugin-dir` flag:
 git clone https://github.com/agentic-coding-school/mermaid-diagram-plugin.git
 claude --plugin-dir ./mermaid-diagram-plugin
 ```
+
+> **Note:** `--plugin-dir` loads the plugin for the current session only. Use Option 1 for a persistent installation.
 
 ## Usage
 
@@ -100,7 +114,8 @@ When enabled, generated HTML files include a **sidebar editor** with:
 ```
 mermaid-diagram-plugin/
 ├── .claude-plugin/
-│   └── plugin.json              # Plugin manifest
+│   ├── plugin.json              # Plugin manifest
+│   └── marketplace.json         # Marketplace catalog
 ├── skills/
 │   └── mermaid-diagram-generator/
 │       ├── SKILL.md                 # Main skill definition
